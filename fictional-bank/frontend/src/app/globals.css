@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-bank-gray text-bank-grayDark dark:bg-bank-grayDark dark:text-bank-gray;
+}
