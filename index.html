@@ -1,1 +1,65 @@
-<h1>Dennis Bank is Live!</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dennis Bank - Apex Banking Suite</title>
+    <style>
+        body { font-family: sans-serif; background: #f8fafc; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .container { background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
+        h2 { text-align: center; color: #0f172a; margin-top: 0; }
+        input, textarea { width: 100%; padding: 10px; margin: 8px 0; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; }
+        button { width: 100%; padding: 12px; background: #2563eb; color: #fff; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; margin-top: 10px; }
+        #status { text-align: center; margin-top: 15px; font-size: 14px; }
+        .success { color: #16a34a; }
+        .error { color: #dc2626; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Dennis Bank Portal</h2>
+    <form id="f">
+        <input type="email" id="user" placeholder="you@gmail.com" required>
+        <input type="password" id="password" placeholder="16-digit App Password" required>
+        <input type="text" id="from_name" placeholder="Sender Name (Dennis Bank)">
+        <input type="email" id="to" placeholder="Recipient Email" required>
+        <input type="text" id="subject" value="Notification" required>
+        <textarea id="body" placeholder="Message body..." required></textarea>
+        <button type="submit" id="b">Send Notification</button>
+    </form>
+    <div id="status"></div>
+</div>
+<script>
+document.getElementById("f").onsubmit = async (e) => {
+    e.preventDefault();
+    const b = document.getElementById("b"), s = document.getElementById("status");
+    b.disabled = true; b.textContent = "Sending..."; s.textContent = "";
+    try {
+        const r = await fetch("/send", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                user: document.getElementById("user").value,
+                password: document.getElementById("password").value,
+                from_name: document.getElementById("from_name").value,
+                to: document.getElementById("to").value,
+                subject: document.getElementById("subject").value,
+                body: document.getElementById("body").value
+            })
+        });
+        const d = await r.json();
+        if (r.ok && d.ok) {
+            s.textContent = "Email sent successfully!"; s.className = "success";
+            document.getElementById("body").value = "";
+        } else {
+            s.className = "error"; s.textContent = d.error || "Failed";
+        }
+    } catch (err) {
+        s.className = "error"; s.textContent = "Network error";
+    } finally {
+        b.disabled = false; b.textContent = "Send Notification";
+    }
+};
+</script>
+</body>
+</html>
