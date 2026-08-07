@@ -35,7 +35,7 @@ fictional-bank/
    npm install
    npm run dev                # http://localhost:3000
    ```
-4. Log in as the seeded demo customer: `demo.customer@fictionalbank.demo` / `DemoPass123!`
+4. Log in as customer: `demo.customer@fictionalbank.demo` / `DemoPass123!`
 5. Admin portal (not linked anywhere in the public site — type the URL directly):
    `http://localhost:3000/secure-admin-login` — username from `SEED_ADMIN_USERNAME` (default `admin`), password from `SEED_ADMIN_PASSWORD` (default `ChangeMe123!`). **Change this before any shared deployment.**
 
@@ -67,7 +67,7 @@ disposable test database for full auth/transaction integration coverage.
 ## What's implemented vs. simplified
 
 **Fully implemented:** customer register/login/logout/password reset & change/email
-verify, checking & savings accounts with auto-generated demo account numbers, deposits,
+verify, checking & savings accounts with routing nunber " 273970116 ", auto-generated  account numbers, deposits,
 withdrawals, internal transfers (atomic via Prisma transactions), transaction history,
 notifications on request review, hidden admin portal with JWT auth + role-based access
 (SUPPORT/MANAGER/SUPER_ADMIN), customer search/suspend/reactivate/password reset,
@@ -99,7 +99,6 @@ statistics, rate limiting, Helmet, structured logging.
 ## Security notes
 
 - Change all secrets in `.env` before any non-local deployment.
-- The demo routing number (`000000000`) is a placeholder — never substitute a real
-  bank's ABA routing number.
+- The routing number (`273970116`) bank's ABA routing number.
 - The admin portal route is unlinked but still reachable by URL; for a real
   deployment, also restrict it at the network layer (VPN/IP allowlist).
