@@ -47,7 +47,8 @@ def send():
         return jsonify({"error":"Authentication failed. Check Gmail App Password."}),401
     except Exception as e:
         return jsonify({"error":str(e)}),500
-if __name__=="__main__":
-    log.info("Starting on :5001")
+if __name__ == "__main__":
     import os
-    app.run(host="0.0.0.0",port=int(os.environ.get("PORT",5001)),debug=False,threaded=True)
+    port = int(os.environ.get("PORT", 8080))
+    log.info(f"Starting on :{port}")
+    app.run(host="0.0.0.0", port=port, debug=False, threaded=True)
