@@ -1,8 +1,4 @@
-# FirstDemo Bank — Fictional Banking Demo Application
-
-**This is a fictional banking platform built for software-development demonstration
-purposes only.** It is not a real bank, is not FDIC-insured, and does not move real money.
-All account numbers, routing numbers, and balances are simulated.
+# First Bank —  Banking  Application
 
 ## Stack
 
