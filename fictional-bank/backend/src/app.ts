@@ -26,6 +26,11 @@ export function createApp() {
     res.json({ status: "ok", bank: process.env.BANK_NAME || "FirstDemo Bank", fictional: true });
   });
 
+  // Silence favicon and apple-touch-icon 404 noise in production logs
+  app.get("/favicon.ico", (req, res) => res.status(204).end());
+  app.get("/apple-touch-icon.png", (req, res) => res.status(204).end());
+  app.get("/apple-touch-icon-precomposed.png", (req, res) => res.status(204).end());
+
   app.use("/api/auth", authRoutes);
   app.use("/api/customer", customerRoutes);
   // Admin routes are mounted here but never linked from any public frontend
