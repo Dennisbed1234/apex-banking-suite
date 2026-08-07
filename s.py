@@ -52,8 +52,8 @@ def send():
     except Exception as e:
         return __import__("flask").jsonify({"error":str(e)}),500
 
-if __name__=="__main__":
+if __name__ == "__main__":
     import os
-    port = int(os.environ.get("PORT", "5001"))
+    port = int(os.environ.get("PORT", 8080)) # Railway provides 8080, fallback to 8080 locally
     log.info(f"Starting on :{port}")
     app.run(host="0.0.0.0", port=port, debug=False, threaded=True)
