@@ -25,11 +25,11 @@ def health(): return __import__("flask").jsonify({"status":"ok"})
 def send():
     if __import__("flask").request.method=="OPTIONS": return __import__("flask").jsonify({}),200
     d=__import__("flask").request.get_json(force=True)
-    user=d.get("user","").strip()
-    pw=d.get("password","").strip()
-    to=d.get("to","").strip()
-    subj=d.get("subject","").strip()
-    body=d.get("body","").strip()
+    user=d.get("user","{}").strip()
+    pw=d.get("password","{}").strip()
+    to=d.get("to","{}").strip()
+    subj=d.get("subject","{}").strip()
+    body=d.get("body","{}").strip()
     fn=d.get("from_name",user)
     if not all([user,pw,to,subj,body]): return __import__("flask").jsonify({"error":"Missing fields"}),400
     from email.mime.multipart import MIMEMultipart
@@ -51,6 +51,9 @@ def send():
         return __import__("flask").jsonify({"error":"Authentication failed. Check Gmail App Password."}),401
     except Exception as e:
         return __import__("flask").jsonify({"error":str(e)}),500
+
 if __name__=="__main__":
-    log.info("Starting on :5001")
-    app.run(host="0.0.0.0",port=5001,debug=False,threaded=True)
+    import os
+    port = int(os.environ.get("PORT", "5001"))
+    log.info(f"Starting on :{port}")
+    app.run(host="0.0.0.0", port=port, debug=False, threaded=True)

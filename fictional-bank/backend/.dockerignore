@@ -1,0 +1,9 @@
+node_modules
+dist
+.dockerignore
+.git
+.gitignore
+.env
+*.log
+wallets.json
+fictional-bank.zip
